@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"log"
 	"notification_service/api"
 	"notification_service/dataservice"
@@ -13,7 +14,7 @@ func main() {
 
 	dataservice.ConnectMongoDB()
 	defer func() {
-		if err := dataservice.Client.Disconnect(nil); err != nil {
+		if err := dataservice.Client.Disconnect(context.TODO()); err != nil {
 			log.Fatal(err)
 		}
 	}()
