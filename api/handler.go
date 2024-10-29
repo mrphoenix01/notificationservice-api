@@ -1,4 +1,3 @@
-// api/handler.go
 package api
 
 import (
@@ -12,7 +11,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-// SubscribeHandler - Handles subscription requests
 func SubscribeHandler(c *gin.Context) {
 	var subscription model.Subscription
 	if err := c.BindJSON(&subscription); err != nil {
@@ -30,7 +28,6 @@ func SubscribeHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Subscription successful"})
 }
 
-// SendNotificationHandler - Sends a notification to all subscribers of a specific topic
 func SendNotificationHandler(c *gin.Context) {
 	var notification model.Notification
 	if err := c.BindJSON(&notification); err != nil {
@@ -38,7 +35,6 @@ func SendNotificationHandler(c *gin.Context) {
 		return
 	}
 
-	// Send notification message to Kafka topic
 	if err := kafka.PublishMessage(notification.Topic, notification); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to send notification"})
 		return
@@ -54,7 +50,6 @@ func SendNotificationHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Notification sent"})
 }
 
-// UnsubscribeHandler - Unsubscribes a user from specified topics
 func UnsubscribeHandler(c *gin.Context) {
 	var unsubscribeRequest struct {
 		UserID string   `json:"user_id"`
@@ -78,7 +73,6 @@ func UnsubscribeHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Unsubscribed successfully"})
 }
 
-// GetSubscriptionsHandler - Fetches user subscriptions
 func GetSubscriptionsHandler(c *gin.Context) {
 	userID := c.Param("user_id")
 

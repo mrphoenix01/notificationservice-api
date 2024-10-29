@@ -1,4 +1,3 @@
-// kafka/producer.go
 package kafka
 
 import (
@@ -11,7 +10,6 @@ import (
 
 var producer sarama.SyncProducer
 
-// InitializeKafkaProducer initializes the Kafka producer
 func InitializeKafkaProducer(brokers []string) {
 	config := sarama.NewConfig()
 	config.Producer.RequiredAcks = sarama.WaitForAll
@@ -26,7 +24,6 @@ func InitializeKafkaProducer(brokers []string) {
 	log.Println("Kafka producer initialized")
 }
 
-// PublishMessage publishes a notification message to the specified Kafka topic
 func PublishMessage(topic string, notification model.Notification) error {
 	message, err := json.Marshal(notification)
 	if err != nil {

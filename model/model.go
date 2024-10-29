@@ -1,4 +1,3 @@
-// model/model.go
 package model
 
 type Subscription struct {
